@@ -17,7 +17,11 @@ public class MovementCharacter : MonoBehaviour
         float horizontalMove = Input.GetAxis("Horizontal");
         float verticalMove = Input.GetAxis("Vertical");
 
-        Vector3 move = new Vector3(horizontalMove, 0, verticalMove).normalized;
+        Vector3 move = transform.forward * verticalMove
+                         + transform.right * horizontalMove;
+        move.y = 0;
+        move = move.normalized;
+
         _targetVelocity = move * _speed;
     }
 

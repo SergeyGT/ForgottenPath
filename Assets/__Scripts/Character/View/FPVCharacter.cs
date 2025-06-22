@@ -7,6 +7,7 @@ public class FPVCharacter : MonoBehaviour
 
     private float rotationX = 0f;
     private float rotationY = 0f;
+    [SerializeField] private Transform player;
 
     public float sensivity;
 
@@ -25,5 +26,7 @@ public class FPVCharacter : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
         cinemachineCamera.transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0);
+
+        player.Rotate(Vector3.up * mouseX);
     }
 }
