@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Flashlight : MonoBehaviour
@@ -7,7 +8,7 @@ public class Flashlight : MonoBehaviour
 
     [Header("Flashlight Settings")]
     [SerializeField] private float _capacity = 100f;
-    [SerializeField] private float _chargeTime = 0.5f;
+    [SerializeField] private float _chargeTakes = 0.5f;
 
     private const float ACUM_SIZE = 100f;
     
@@ -43,10 +44,19 @@ public class Flashlight : MonoBehaviour
         }
 
         // если фонарь работал, но заряда больше нет, он выкючается автоматически
-        if (_capacity == 0)
+        if (_capacity <= 0)
         {
             flashlight.SetActive(false);
         }
+        else InvokeRepeating("GiveBatteryCharge", 2, 2);
+    }
 
+    private void GiveBatteryCharge()
+    {
+        _capacity -= _chargeTakes;
+        if (_capacity < 0)
+        {
+            _capacity = 0;
+        }
     }
 }
