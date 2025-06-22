@@ -21,11 +21,11 @@ public class FPVCharacter : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * sensivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensivity;
 
-        rotationY += mouseX;
+        //rotationY += mouseX;
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
-        cinemachineCamera.transform.localRotation = Quaternion.Euler(rotationX, rotationY, 0);
+        cinemachineCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
 
         player.Rotate(Vector3.up * mouseX);
     }

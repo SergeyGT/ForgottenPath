@@ -3,6 +3,7 @@ using UnityEngine;
 public class MovementCharacter : MonoBehaviour
 {
     [SerializeField] private int _speed = 1;
+    [SerializeField] private int _shiftSpeed = 5;
     private Rigidbody _rigidbody;
     private Vector3 _currentVelocity;
     private Vector3 _targetVelocity;
@@ -22,7 +23,8 @@ public class MovementCharacter : MonoBehaviour
         move.y = 0;
         move = move.normalized;
 
-        _targetVelocity = move * _speed;
+        if (Input.GetKeyDown(KeyCode.LeftShift)) _targetVelocity = move * _shiftSpeed;
+        else _targetVelocity = move * _speed;
     }
 
     private void FixedUpdate()
