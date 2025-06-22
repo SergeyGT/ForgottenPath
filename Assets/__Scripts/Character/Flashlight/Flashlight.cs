@@ -51,7 +51,6 @@ public class Flashlight : MonoBehaviour
         {
             flashlight.SetActive(false);
         }
-        else InvokeRepeating("GiveBatteryCharge", 2, 2);
     }
 
     private void GiveBatteryCharge()

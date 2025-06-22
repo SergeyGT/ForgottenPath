@@ -11,5 +11,6 @@ public class Battery : MonoBehaviour, IInteractableObject
     public void Interact()
     {
         GiveCharge?.Invoke(_capacity);
+        Destroy(gameObject);
     }
 }

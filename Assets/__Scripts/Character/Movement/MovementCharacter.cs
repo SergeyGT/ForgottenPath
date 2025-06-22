@@ -26,7 +26,7 @@ public class MovementCharacter : MonoBehaviour
         move.y = 0;
         move = move.normalized;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift)) _targetVelocity = move * _shiftSpeed;
+        if (Input.GetKey(KeyCode.LeftShift)) _targetVelocity = move * _shiftSpeed;
         else _targetVelocity = move * _speed;
     }
 
