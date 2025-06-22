@@ -631,6 +631,7 @@ GameObject:
   - component: {fileID: 535931350}
   - component: {fileID: 535931352}
   - component: {fileID: 535931351}
+  - component: {fileID: 535931353}
   m_Layer: 5
   m_Name: BatteriesEnded
   m_TagString: Untagged
@@ -756,6 +757,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 535931349}
   m_CullTransparentMesh: 1
+--- !u!225 &535931353
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535931349}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &765578845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,6 +1323,7 @@ GameObject:
   - component: {fileID: 1127055412}
   - component: {fileID: 1127055411}
   - component: {fileID: 1127055410}
+  - component: {fileID: 1127055414}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -1401,6 +1415,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1127055414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127055409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7671e728660116549a280c1cc71c3f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiContainers:
+  - key: batteryEnded
+    element: {fileID: 535931353}
 --- !u!1 &1204880367
 GameObject:
   m_ObjectHideFlags: 0

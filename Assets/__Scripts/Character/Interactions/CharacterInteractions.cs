@@ -26,7 +26,8 @@ public class CharacterInteractions : MonoBehaviour
             }
             else
             {
-                //UIManager.Instance.
+                UIManager.Instance.ShowElement("batteryEnded");
+                UIManager.Instance.HideElement("batteryEnded");
             }
         }
     }
