@@ -26,7 +26,7 @@ public class CharacterInteractions : MonoBehaviour
             }
             else
             {
-
+                //UIManager.Instance.
             }
         }
     }
