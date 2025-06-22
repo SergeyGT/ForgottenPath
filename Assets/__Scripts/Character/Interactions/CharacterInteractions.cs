@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class CharacterInteractions : MonoBehaviour
 {
+    public static Action GiveCharge;
+
     private void OnTriggerEnter(Collider other)
     {
         IInteractableObject gameObject = other.GetComponent<IInteractableObject>();
@@ -11,4 +14,21 @@ public class CharacterInteractions : MonoBehaviour
         }
         else Debug.LogWarning("It`s not interactable object");
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if(Inventory.Instance.GetBatteries() > 0)
+            {
+                Inventory.Instance.SetBatteries(-1);
+                GiveCharge?.Invoke();
+            }
+            else
+            {
+
+            }
+        }
+    }
+
 }

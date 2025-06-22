@@ -24,18 +24,17 @@ public class Flashlight : MonoBehaviour
 
     private void OnEnable()
     {
-        Battery.GiveCharge += TakeCharge;
+        CharacterInteractions.GiveCharge += TakeCharge;
     }
 
     private void OnDisable()
     {
-        Battery.GiveCharge -= TakeCharge;
+        CharacterInteractions.GiveCharge -= TakeCharge;
     }
 
-    private void TakeCharge(float amount)
+    private void TakeCharge()
     {
-        _capacity += amount;
-        _capacity = Mathf.Min(_capacity, ACUM_SIZE);
+        _capacity = ACUM_SIZE;
     }
 
     private void Update()
