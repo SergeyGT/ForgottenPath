@@ -41,6 +41,9 @@ public class Flashlight : MonoBehaviour
             isActive = !isActive;
 
             flashlight.SetActive(isActive);
+
+            if (isActive) InvokeRepeating(nameof(GiveBatteryCharge), 2f, 2f);
+            else CancelInvoke(nameof(GiveBatteryCharge));
         }
 
         // если фонарь работал, но заряда больше нет, он выкючается автоматически
@@ -53,10 +56,6 @@ public class Flashlight : MonoBehaviour
 
     private void GiveBatteryCharge()
     {
-        _capacity -= _chargeTakes;
-        if (_capacity < 0)
-        {
-            _capacity = 0;
-        }
+        _capacity = Mathf.Max(0, _capacity - _chargeTakes);
     }
 }

@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 879743819}
   - component: {fileID: 879743818}
   - component: {fileID: 879743817}
+  - component: {fileID: 879743821}
   m_Layer: 0
   m_Name: Battery
   m_TagString: Untagged
@@ -552,6 +553,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &879743821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879743816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276b674cbc964c74391e3d0ac4fd5df5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _capacity: 40
 --- !u!1 &1011572931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,8 +1138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashlight: {fileID: 2129940123}
-  _capacity: 0
-  _chargeTime: 0
+  _capacity: 100
+  _chargeTakes: 0.5
 --- !u!136 &1221762864
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1734,6 +1748,7 @@ GameObject:
   - component: {fileID: 1626900308}
   - component: {fileID: 1626900313}
   - component: {fileID: 1626900314}
+  - component: {fileID: 1626900315}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1891,6 +1906,18 @@ MonoBehaviour:
   _shiftSpeed: 10
   _acceleration: 0.2
   _deceleration: 0.05
+--- !u!114 &1626900315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626900306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba39fac3d86639948b99244387f8281e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1719593920
 Mesh:
   m_ObjectHideFlags: 0
