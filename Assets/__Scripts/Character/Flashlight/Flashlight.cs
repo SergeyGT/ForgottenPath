@@ -14,7 +14,12 @@ public class Flashlight : MonoBehaviour
     
     private void Start()
     {
-        if (flashlight == null) Debug.LogError("Flashlight is NULL!");
+        if (flashlight == null)
+        {
+            Debug.LogError("Flashlight is NULL!");
+            enabled = false;
+        }
+        
     }
 
     private void OnEnable()
@@ -56,5 +61,15 @@ public class Flashlight : MonoBehaviour
     private void GiveBatteryCharge()
     {
         _capacity = Mathf.Max(0, _capacity - _chargeTakes);
+    }
+
+    public float GetCapacity()
+    {
+        return _capacity;
+    }
+
+    public float GetAcumSize()
+    {
+        return ACUM_SIZE;
     }
 }
