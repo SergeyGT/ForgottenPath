@@ -20,6 +20,7 @@ public class Inventory
     public void SetBatteries(int countBatteries)
     {
         _countBatteries += countBatteries;
+        UIManager.Instance.UpdateInventory();
     }
 
     public int GetBatteries()
@@ -30,9 +31,10 @@ public class Inventory
     public void SetKey(string key, Key obj)
     {
         keyValuePairs[key] = obj;
+        UIManager.Instance.UpdateInventory(key);
     }
 
-    public bool GetKey(string key)
+    public Key GetKey(string key)
     {
         return keyValuePairs[key];
     }

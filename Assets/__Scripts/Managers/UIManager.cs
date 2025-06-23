@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float eyelidsMoveDuration = 0.5f;
     [SerializeField] private float eyelidsStayClosedDuration = 1f;
 
+    [Header("InventoryMenu Configuration")]
+    [SerializeField] private TextMeshProUGUI batteriesCount;
+
     private float _fadeDuration = 1.5f;
     private bool _eyesClosing = false;
     private string _currentMessage;
@@ -21,6 +25,8 @@ public class UIManager : MonoBehaviour
     private RectTransform _lowerEyelid;
     private Vector2 _upperEyelidOpenPos;
     private Vector2 _lowerEyelidOpenPos;
+
+    private const string TEXT_COUNT_BATTERIES = "Count batteries: ";
 
     [System.Serializable]
     public class UIContainer
@@ -44,6 +50,16 @@ public class UIManager : MonoBehaviour
 
         InitializeDictionary();
         InitializeEyelids();
+    }
+
+    private void Start()
+    {
+        InitializeUI();
+    }
+
+    private void InitializeUI()
+    {
+        batteriesCount.SetText("Count batteries: 0");
     }
 
     private void InitializeEyelids()
@@ -162,5 +178,17 @@ public class UIManager : MonoBehaviour
                 _eyesClosing = false;
             });
 
+    }
+
+    public void UpdateInventory()
+    {
+        string countBatteries = Inventory.Instance.GetBatteries().ToString();
+        batteriesCount.SetText(TEXT_COUNT_BATTERIES + countBatteries);
+        
+    }
+
+    public void UpdateInventory(string keyUpdate)
+    {
+        Key key = Inventory.Instance.GetKey(keyUpdate);
     }
 }
