@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,18 +14,22 @@ public class UIManager : MonoBehaviour
 
     [Header("Eyelids Configuration")]
     [SerializeField] private float eyelidsMoveDuration = 0.5f;
-    [SerializeField] private float eyelidsStayClosedDuration = 1f;
+    [SerializeField] private float infoDisplayDelay = 0.1f; // Задержка перед показом информации после закрытия
+    [SerializeField] private float infoDisplayDuration = 3f; // Время отображения информации
 
     [Header("InventoryMenu Configuration")]
     [SerializeField] private TextMeshProUGUI batteriesCount;
 
-    private float _fadeDuration = 1.5f;
+    private float _fadeDuration = 2f;
     private bool _eyesClosing = false;
-    private string _currentMessage;
+    private bool _eyesClosed = false;
     private RectTransform _upperEyelid;
     private RectTransform _lowerEyelid;
     private Vector2 _upperEyelidOpenPos;
     private Vector2 _lowerEyelidOpenPos;
+    private Coroutine _eyesClosedCoroutine;
+    private LTDescr _upperEyelidTween;
+    private LTDescr _lowerEyelidTween;
 
     private const string TEXT_COUNT_BATTERIES = "Count batteries: ";
 
@@ -59,7 +64,7 @@ public class UIManager : MonoBehaviour
 
     private void InitializeUI()
     {
-        batteriesCount.SetText("Count batteries: 0");
+        batteriesCount.SetText(TEXT_COUNT_BATTERIES + "0");
     }
 
     private void InitializeEyelids()
@@ -105,7 +110,7 @@ public class UIManager : MonoBehaviour
     {
         if (uiElements.TryGetValue(elementKey, out CanvasGroup element))
         {
-            element.alpha = 0.3f;
+            element.alpha = 0f;
             element.gameObject.SetActive(true);
             LeanTween.alphaCanvas(element, 1f, _fadeDuration);
         }
@@ -128,7 +133,13 @@ public class UIManager : MonoBehaviour
     {
         if (_eyesClosing) return;
 
+        // Отменяем все текущие анимации
+        if (_upperEyelidTween != null) LeanTween.cancel(_upperEyelid.gameObject);
+        if (_lowerEyelidTween != null) LeanTween.cancel(_lowerEyelid.gameObject);
+        if (_eyesClosedCoroutine != null) StopCoroutine(_eyesClosedCoroutine);
+
         _eyesClosing = true;
+        _eyesClosed = false;
 
         // Активируем веки
         if (uiElements.TryGetValue("UpperEyelid", out CanvasGroup upperEyelidGroup))
@@ -142,20 +153,15 @@ public class UIManager : MonoBehaviour
         Vector2 lowerClosedPos = _lowerEyelidOpenPos + new Vector2(0, closeOffset);
 
         // Анимация закрытия
-        LeanTween.move(_upperEyelid, upperClosedPos, eyelidsMoveDuration)
+        _upperEyelidTween = LeanTween.move(_upperEyelid, upperClosedPos, eyelidsMoveDuration)
             .setEase(LeanTweenType.easeInOutQuad);
 
-        LeanTween.move(_lowerEyelid, lowerClosedPos, eyelidsMoveDuration)
+        _lowerEyelidTween = LeanTween.move(_lowerEyelid, lowerClosedPos, eyelidsMoveDuration)
             .setEase(LeanTweenType.easeInOutQuad)
             .setOnComplete(() => {
-             ShowElement("inventory");
-
-                //LeanTween.delayedCall(eyelidsStayClosedDuration, () => {
-                //    if (!Input.GetKey(KeyCode.Tab))
-                //    {
-                //        StartOpeningEyes();
-                //    }
-                //});
+                _eyesClosed = true;
+                // Запускаем корутину для отображения информации
+                _eyesClosedCoroutine = StartCoroutine(EyesClosedRoutine());
             });
     }
 
@@ -163,12 +169,19 @@ public class UIManager : MonoBehaviour
     {
         if (!_eyesClosing) return;
 
+        // Отменяем все текущие анимации и корутины
+        if (_upperEyelidTween != null) LeanTween.cancel(_upperEyelid.gameObject);
+        if (_lowerEyelidTween != null) LeanTween.cancel(_lowerEyelid.gameObject);
+        if (_eyesClosedCoroutine != null) StopCoroutine(_eyesClosedCoroutine);
+
+        // Скрываем информацию сразу при начале открытия глаз
         HideElement("inventory");
 
-        LeanTween.move(_upperEyelid, _upperEyelidOpenPos, eyelidsMoveDuration)
+        // Анимация открытия
+        _upperEyelidTween = LeanTween.move(_upperEyelid, _upperEyelidOpenPos, eyelidsMoveDuration)
             .setEase(LeanTweenType.easeInOutQuad);
 
-        LeanTween.move(_lowerEyelid, _lowerEyelidOpenPos, eyelidsMoveDuration)
+        _lowerEyelidTween = LeanTween.move(_lowerEyelid, _lowerEyelidOpenPos, eyelidsMoveDuration)
             .setEase(LeanTweenType.easeInOutQuad)
             .setOnComplete(() => {
                 if (uiElements.TryGetValue("UpperEyelid", out CanvasGroup upperEyelidGroup))
@@ -176,15 +189,35 @@ public class UIManager : MonoBehaviour
                 if (uiElements.TryGetValue("LowerEyelid", out CanvasGroup lowerEyelidGroup))
                     lowerEyelidGroup.gameObject.SetActive(false);
                 _eyesClosing = false;
+                _eyesClosed = false;
             });
+    }
 
+    private IEnumerator EyesClosedRoutine()
+    {
+        // Ждем полного закрытия глаз + небольшую задержку
+        yield return new WaitForSeconds(infoDisplayDelay);
+
+        // Показываем информацию только если глаза остаются закрытыми
+        if (_eyesClosed)
+        {
+            ShowElement("inventory");
+
+            // Ждем указанное время перед скрытием информации
+            yield return new WaitForSeconds(infoDisplayDuration);
+
+            // Скрываем информацию только если глаза остаются закрытыми
+            if (_eyesClosed)
+            {
+                HideElement("inventory");
+            }
+        }
     }
 
     public void UpdateInventory()
     {
         string countBatteries = Inventory.Instance.GetBatteries().ToString();
         batteriesCount.SetText(TEXT_COUNT_BATTERIES + countBatteries);
-        
     }
 
     public void UpdateInventory(string keyUpdate)
