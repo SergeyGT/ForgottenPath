@@ -4,9 +4,10 @@ using UnityEngine.UI;
 public class FlashlightCapacityUI : MonoBehaviour
 {
     [Header("Settings Capacity Flashlight")]
-    [SerializeField] private Flashlight flashlight;
+    [SerializeField] private GameObject flashlight;
     [SerializeField] private Image image;
 
+    private Flashlight flashlightActions;
     private void Start()
     {
         if (flashlight == null)
@@ -21,6 +22,7 @@ public class FlashlightCapacityUI : MonoBehaviour
             enabled = false;
         }
 
+        flashlightActions = flashlight.GetComponent<Flashlight>();
         UpdateUI();
     }
 
@@ -31,8 +33,8 @@ public class FlashlightCapacityUI : MonoBehaviour
 
     private void UpdateUI()
     {
-        image.fillAmount = flashlight.GetCapacity() / flashlight.GetAcumSize();
-        if(flashlight.GetCapacity() <= 20) image.color = Color.red;
+        image.fillAmount = flashlightActions.GetCapacity() / flashlightActions.GetAcumSize();
+        if(flashlightActions.GetCapacity() <= 20) image.color = Color.red;
         else image.color = Color.yellow;
     }
 }
