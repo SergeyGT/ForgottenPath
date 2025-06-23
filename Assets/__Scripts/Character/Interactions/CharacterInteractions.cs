@@ -17,9 +17,15 @@ public class CharacterInteractions : MonoBehaviour
 
     private void Update()
     {
+        ChargeFlashlight();
+        CheckInventory();
+    }
+
+    private void ChargeFlashlight()
+    {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if(Inventory.Instance.GetBatteries() > 0)
+            if (Inventory.Instance.GetBatteries() > 0)
             {
                 Inventory.Instance.SetBatteries(-1);
                 GiveCharge?.Invoke();
@@ -32,4 +38,15 @@ public class CharacterInteractions : MonoBehaviour
         }
     }
 
+    private void CheckInventory()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            UIManager.Instance.StartClosingEyes();
+        }
+        if(Input.GetKeyUp(KeyCode.Tab))
+        {
+            UIManager.Instance.StartOpeningEyes();
+        }
+    }
 }
