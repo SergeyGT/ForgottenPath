@@ -15,7 +15,7 @@ public class Battery : MonoBehaviour, IInteractableObject
         Destroy(gameObject);
     }
 
-    public void Highlight()
+    public void Highlight(bool isHighlighted)
     {
 
     }

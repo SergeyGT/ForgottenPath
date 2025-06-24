@@ -33,7 +33,7 @@ public class CharacterInteractions : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Door"))
             {
                 IInteractableObject door = hit.collider.gameObject.GetComponent<IInteractableObject>();
-                door.Interact();
+                door.Highlight(true);
             }
         }
 

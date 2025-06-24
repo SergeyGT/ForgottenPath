@@ -2,13 +2,28 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractableObject
 {
-    public void Interact()
+    private Material defaultMaterial;
+    [SerializeField] private Material highlightMaterial;
+    private MeshRenderer doorRenderer;
+
+    private void Start()
     {
-        Debug.Log("Check door");
+        doorRenderer = GetComponent<MeshRenderer>();
+        defaultMaterial = doorRenderer.material;
     }
 
-    public void Highlight()
+    public void Interact()
     {
+        Debug.Log("Door opened!");
+        // Логика открытия двери
+    }
 
+    public void Highlight(bool isHighlighted)
+    {
+        if (doorRenderer == null) return;
+
+        doorRenderer.material = isHighlighted ? doorRenderer.materials[1] : doorRenderer.materials[0];
+
+        Debug.Log(isHighlighted ? "Door highlighted!" : "Highlight removed");
     }
 }
