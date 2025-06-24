@@ -1,8 +1,11 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterInteractions : MonoBehaviour
 {
+    [SerializeField] private float maxDistanceToInteract;
+
     public static Action GiveCharge;
 
     private void OnTriggerEnter(Collider other)
@@ -19,6 +22,21 @@ public class CharacterInteractions : MonoBehaviour
     {
         ChargeFlashlight();
         CheckInventory();
+
+        Debug.DrawRay(transform.position, transform.forward * maxDistanceToInteract, Color.red);
+    }
+
+    private void FixedUpdate()
+    {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, maxDistanceToInteract))
+        {
+            if (hit.collider.gameObject.CompareTag("Door"))
+            {
+                IInteractableObject door = hit.collider.gameObject.GetComponent<IInteractableObject>();
+                door.Interact();
+            }
+        }
+
     }
 
     private void ChargeFlashlight()
@@ -49,4 +67,6 @@ public class CharacterInteractions : MonoBehaviour
             UIManager.Instance.StartOpeningEyes();
         }
     }
+
+    
 }

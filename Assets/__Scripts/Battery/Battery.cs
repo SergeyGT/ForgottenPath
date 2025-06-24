@@ -14,4 +14,9 @@ public class Battery : MonoBehaviour, IInteractableObject
         Inventory.Instance.SetBatteries(1);
         Destroy(gameObject);
     }
+
+    public void Highlight()
+    {
+
+    }
 }
