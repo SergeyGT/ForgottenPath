@@ -6,6 +6,8 @@ public class CharacterInteractions : MonoBehaviour
 {
     [SerializeField] private float maxDistanceToInteract;
 
+    private IInteractableObject lastInteractableObject;
+
     public static Action GiveCharge;
 
     private void OnTriggerEnter(Collider other)
@@ -32,9 +34,14 @@ public class CharacterInteractions : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Door"))
             {
-                IInteractableObject door = hit.collider.gameObject.GetComponent<IInteractableObject>();
-                door.Highlight(true);
+                lastInteractableObject = hit.collider.gameObject.GetComponent<IInteractableObject>();
+                lastInteractableObject.Highlight(true);
             }
+        }
+        else
+        {
+            lastInteractableObject.Highlight(false);
+            lastInteractableObject = null;
         }
 
     }

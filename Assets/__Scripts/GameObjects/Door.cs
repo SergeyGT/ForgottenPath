@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractableObject
 {
-    private Material defaultMaterial;
+    [SerializeField] private Material defaultMaterial;
     [SerializeField] private Material highlightMaterial;
     private MeshRenderer doorRenderer;
 
     private void Start()
     {
         doorRenderer = GetComponent<MeshRenderer>();
-        defaultMaterial = doorRenderer.material;
+        doorRenderer.material = defaultMaterial;
     }
 
     public void Interact()
@@ -22,7 +22,7 @@ public class Door : MonoBehaviour, IInteractableObject
     {
         if (doorRenderer == null) return;
 
-        doorRenderer.material = isHighlighted ? doorRenderer.materials[1] : doorRenderer.materials[0];
+        doorRenderer.material = isHighlighted ? highlightMaterial : defaultMaterial;
 
         Debug.Log(isHighlighted ? "Door highlighted!" : "Highlight removed");
     }
