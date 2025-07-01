@@ -14,6 +14,7 @@ public class MovementCharacter : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+       // _rigidbody.freezeRotation = true; 
     }
 
     private void Update()
