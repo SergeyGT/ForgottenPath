@@ -26,11 +26,10 @@ public class CharacterInteractions : MonoBehaviour
     {
         ChargeFlashlight();
         CheckInventory();
-
-        Debug.DrawRay(transform.position, transform.forward * maxDistanceToInteract, Color.red);
+        CheckInteractions();
     }
 
-    private void FixedUpdate()
+    private void CheckInteractions()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
@@ -38,6 +37,11 @@ public class CharacterInteractions : MonoBehaviour
         {
             lastInteractableObject = hit.collider.gameObject.GetComponent<IInteractableObject>();
             lastInteractableObject.Highlight(true);
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                lastInteractableObject.Interact();
+            }
         }
         else
         {
@@ -45,9 +49,7 @@ public class CharacterInteractions : MonoBehaviour
             lastInteractableObject.Highlight(false);
             lastInteractableObject = null;
         }
-
     }
-
     private void ChargeFlashlight()
     {
         if (Input.GetKeyDown(KeyCode.R))
