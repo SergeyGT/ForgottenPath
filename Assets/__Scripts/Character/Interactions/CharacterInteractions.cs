@@ -38,7 +38,7 @@ public class CharacterInteractions : MonoBehaviour
             lastInteractableObject = hit.collider.gameObject.GetComponent<IInteractableObject>();
             lastInteractableObject.Highlight(true);
 
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 lastInteractableObject.Interact();
             }

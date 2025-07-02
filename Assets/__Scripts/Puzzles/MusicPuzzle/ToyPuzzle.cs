@@ -16,6 +16,7 @@ public class ToyPuzzle : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            enteredCombination = new List<int>();
         }
         else
         {
