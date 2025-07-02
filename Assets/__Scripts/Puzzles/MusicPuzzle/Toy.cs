@@ -10,8 +10,6 @@ public class Toy : MonoBehaviour, IInteractableObject
     [Header("Params of toy")]
     [SerializeField] private int number;
     [SerializeField] private AudioClip note;
-   
-    public Action<int> pressed;
 
     private MeshRenderer renderer;
 
@@ -26,13 +24,11 @@ public class Toy : MonoBehaviour, IInteractableObject
         if (highlightedMaterial == null) return;
 
         renderer.material = isHighlighted ? highlightedMaterial : defaulMaterial;
-
-        print("Toy highlighted");
     }
 
     public void Interact()
     {
         SFXManager.Instance.PlaySound(note, transform, 0.3f);
-        //pressed?.Invoke(number);
+        ToyPuzzle.Instance.Entered(number);
     }
 }
