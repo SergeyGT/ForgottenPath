@@ -361,7 +361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &151507991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +377,7 @@ MonoBehaviour:
   defaulMaterial: {fileID: 0}
   highlightedMaterial: {fileID: 0}
   number: 3
-  note: {fileID: 0}
+  note: {fileID: 8300000, guid: 99f56e4f5dbe62d4bba327139faf94ff, type: 3}
 --- !u!65 &151507992
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -897,7 +897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &382552743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,7 +913,7 @@ MonoBehaviour:
   defaulMaterial: {fileID: 0}
   highlightedMaterial: {fileID: 0}
   number: 5
-  note: {fileID: 0}
+  note: {fileID: 8300000, guid: 52df7244a7173a04a855186d57c82cc9, type: 3}
 --- !u!65 &382552744
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8337,7 +8337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1034312937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8353,7 +8353,7 @@ MonoBehaviour:
   defaulMaterial: {fileID: 0}
   highlightedMaterial: {fileID: 0}
   number: 4
-  note: {fileID: 0}
+  note: {fileID: 8300000, guid: 098e2ca610d2f2349b65d5ae9d904254, type: 3}
 --- !u!65 &1034312938
 BoxCollider:
   m_ObjectHideFlags: 0
