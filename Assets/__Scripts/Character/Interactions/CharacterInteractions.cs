@@ -1,11 +1,12 @@
 using System;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterInteractions : MonoBehaviour
 {
     [SerializeField] private float maxDistanceToInteract;
-    [SerializeField] private int layerMaskInteractableObjects;
+    [SerializeField] private LayerMask layerMaskInteractableObjects;
 
     private IInteractableObject lastInteractableObject;
 
@@ -31,13 +32,16 @@ public class CharacterInteractions : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, maxDistanceToInteract, layerMaskInteractableObjects))
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
+        if (Physics.Raycast(ray, out RaycastHit hit, maxDistanceToInteract, layerMaskInteractableObjects))
         {
             lastInteractableObject = hit.collider.gameObject.GetComponent<IInteractableObject>();
             lastInteractableObject.Highlight(true);
         }
         else
         {
+            if (lastInteractableObject == null) return;
             lastInteractableObject.Highlight(false);
             lastInteractableObject = null;
         }
