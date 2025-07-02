@@ -30,7 +30,7 @@ public class Toy : MonoBehaviour, IInteractableObject
 
     public void Interact()
     {
-        
+        SFXManager.Instance.PlaySound(note, transform, 1f);
         pressed?.Invoke(number);
     }
 }
