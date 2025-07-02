@@ -4,7 +4,7 @@ public class SFXManager : MonoBehaviour
 {
    public static SFXManager Instance;
 
-    [SerializeField] private AudioSource sfx;
+   [SerializeField] private AudioSource sfx;
 
     private void Awake()
     {

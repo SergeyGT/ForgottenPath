@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterInteractions : MonoBehaviour
 {
     [SerializeField] private float maxDistanceToInteract;
+    [SerializeField] private int layerMaskInteractableObjects;
 
     private IInteractableObject lastInteractableObject;
 
@@ -30,13 +31,10 @@ public class CharacterInteractions : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, maxDistanceToInteract))
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, maxDistanceToInteract, layerMaskInteractableObjects))
         {
-            if (hit.collider.gameObject.CompareTag("Door"))
-            {
-                lastInteractableObject = hit.collider.gameObject.GetComponent<IInteractableObject>();
-                lastInteractableObject.Highlight(true);
-            }
+            lastInteractableObject = hit.collider.gameObject.GetComponent<IInteractableObject>();
+            lastInteractableObject.Highlight(true);
         }
         else
         {
