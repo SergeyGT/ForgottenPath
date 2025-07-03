@@ -2,15 +2,9 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Key Params")]
+    [SerializeField] private string title;
+    [SerializeField] private int number;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

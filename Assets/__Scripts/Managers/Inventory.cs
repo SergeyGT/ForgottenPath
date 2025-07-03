@@ -34,7 +34,7 @@ public class Inventory
         UIManager.Instance.UpdateInventory(key);
     }
 
-    public Key GetKey(string key)
+    public bool IsKeyInventory(string key)
     {
         return keyValuePairs[key];
     }
