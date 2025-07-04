@@ -1,16 +1,27 @@
 using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using NUnit.Framework;
 using UnityEngine;
 
-public abstract class Door : MonoBehaviour, IInteractableObject
+public class Door : MonoBehaviour, IInteractableObject
 {
     [SerializeField] private Material defaultMaterial;
     [SerializeField] private Material highlightMaterial;
     [SerializeField] private Boolean isDoorWithKey;
     [SerializeField] private string doorName;
+    [SerializeField] private List<Lock> locks;
 
     private MeshRenderer doorRenderer;
     
     private Boolean isDoorOpen;
+
+    [System.Serializable]
+    public class Lock
+    {
+        [SerializeField] private int number;
+        private bool isUnlocked;
+    }
 
     private void Awake()
     {
@@ -46,7 +57,14 @@ public abstract class Door : MonoBehaviour, IInteractableObject
 
     private void OpenDoor()
     {
+        if (isDoorWithKey && !isDoorOpen)
+        {
+                
+        }
+        else
+        {
 
+        }
     }
 
     private void CloseDoor()

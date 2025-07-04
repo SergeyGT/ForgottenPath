@@ -1,10 +1,21 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Key : MonoBehaviour
+public class Key : MonoBehaviour, IInteractableObject
 {
-    [Header("Key Params")]
-    [SerializeField] private string title;
-    [SerializeField] private int number;
+    [SerializeField] private KeysSO key;
 
-    
+    public static UnityAction<KeysSO> pickedUp;
+    public void Highlight(bool isHighlighted)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Interact()
+    {
+        pickedUp?.Invoke(key);
+        Destroy(gameObject);
+    }
+    public int GetId() => key.id;
+    public string GetTitle() => key.title;
 }

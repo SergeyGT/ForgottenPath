@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory
 {
     private int _countBatteries = 0;
-    private Dictionary<string, Key> keyValuePairs = new Dictionary<string, Key>();
+    private Dictionary<int, Key> keyValuePairs = new Dictionary<int, Key>();
 
     private static Inventory _instance;
     public static Inventory Instance
@@ -15,6 +16,15 @@ public class Inventory
                 _instance = new Inventory();
             return _instance;
         }
+    }
+
+    private void OnEnable()
+    {
+        //Key.pickedUp += 
+    }
+    private void OnDisable()
+    {
+
     }
 
     public void SetBatteries(int countBatteries)
@@ -28,15 +38,15 @@ public class Inventory
         return _countBatteries;
     }
 
-    public void SetKey(string key, Key obj)
+    public void SetKey(int keyID, Key obj)
     {
-        keyValuePairs[key] = obj;
-        UIManager.Instance.UpdateInventory(key);
+        keyValuePairs[keyID] = obj;
+        UIManager.Instance.UpdateInventory(keyID);
     }
 
-    public bool IsKeyInventory(string key)
+    public bool IsKeyInventory(int keyID)
     {
-        return keyValuePairs[key];
+        return keyValuePairs[keyID];
     }
 
 }

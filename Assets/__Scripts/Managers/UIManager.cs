@@ -220,8 +220,8 @@ public class UIManager : MonoBehaviour
         batteriesCount.SetText(TEXT_COUNT_BATTERIES + countBatteries);
     }
 
-    public void UpdateInventory(string keyUpdate)
+    public void UpdateInventory(int keyUpdate)
     {
-        Key key = Inventory.Instance.GetKey(keyUpdate);
+        //Key key = Inventory.Instance.GetKey(keyUpdate);
     }
 }
