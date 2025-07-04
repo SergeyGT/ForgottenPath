@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory
 {
     private int _countBatteries = 0;
-    private Dictionary<int, Key> keyValuePairs = new Dictionary<int, Key>();
+    private Dictionary<int, KeysSO> keyValuePairs = new Dictionary<int, KeysSO>();
 
     private static Inventory _instance;
     public static Inventory Instance
@@ -20,11 +20,11 @@ public class Inventory
 
     private void OnEnable()
     {
-        //Key.pickedUp += 
+        Key.pickedUp += SetKey;
     }
     private void OnDisable()
     {
-
+        Key.pickedUp -= SetKey;
     }
 
     public void SetBatteries(int countBatteries)
@@ -38,10 +38,10 @@ public class Inventory
         return _countBatteries;
     }
 
-    public void SetKey(int keyID, Key obj)
+    public void SetKey(KeysSO key)
     {
-        keyValuePairs[keyID] = obj;
-        UIManager.Instance.UpdateInventory(keyID);
+        keyValuePairs[key.id] = key;
+        UIManager.Instance.UpdateInventory(key.id);
     }
 
     public bool IsKeyInventory(int keyID)

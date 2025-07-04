@@ -14,13 +14,14 @@ public class Door : MonoBehaviour, IInteractableObject
 
     private MeshRenderer doorRenderer;
     
-    private Boolean isDoorOpen;
+    private bool isDoorOpenWithKeys = false;
+    private bool isDoorOpen = false;
 
     [System.Serializable]
     public class Lock
     {
-        [SerializeField] private int number;
-        private bool isUnlocked;
+        public int number;
+        public bool isUnlocked = false;
     }
 
     private void Awake()
@@ -35,7 +36,6 @@ public class Door : MonoBehaviour, IInteractableObject
 
     public void Interact()
     {
-        Debug.Log("Door opened!");
         if (isDoorOpen)
         {
             CloseDoor();
@@ -57,18 +57,36 @@ public class Door : MonoBehaviour, IInteractableObject
 
     private void OpenDoor()
     {
-        if (isDoorWithKey && !isDoorOpen)
+        if (isDoorWithKey && !isDoorOpenWithKeys)
         {
-                
-        }
-        else
-        {
+            for(int i = 0; i<locks.Count; i++)
+            {
+                if (Inventory.Instance.IsKeyInventory(locks[i].number))
+                {
+                    locks[i].isUnlocked = true;
+                    isDoorOpenWithKeys = true;
+                }
+                else
+                {
+                    isDoorOpenWithKeys = false;
+                    Debug.LogWarning("Не все ключи собраны");
+                    break;
+                }
+            }
 
+            if (!isDoorOpenWithKeys)
+            {
+                Debug.LogWarning("Дверь закрыта");
+                return;
+            }  
         }
+        // Анимация открытия двери
+        isDoorOpen = true;
     }
 
     private void CloseDoor()
     {
-
+        //анимация закрытия двери
+        isDoorOpen = false;
     }
 }

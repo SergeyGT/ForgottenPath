@@ -13,6 +13,7 @@ public class Key : MonoBehaviour, IInteractableObject
 
     public void Interact()
     {
+        print("Pickup key");
         pickedUp?.Invoke(key);
         Destroy(gameObject);
     }
