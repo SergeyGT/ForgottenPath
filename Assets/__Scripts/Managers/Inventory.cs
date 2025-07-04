@@ -1,20 +1,24 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
-public class Inventory
+public class Inventory : MonoBehaviour
 {
     private int _countBatteries = 0;
     private Dictionary<int, KeysSO> keyValuePairs = new Dictionary<int, KeysSO>();
 
-    private static Inventory _instance;
-    public static Inventory Instance
+    public static Inventory Instance;
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if (_instance == null)
-                _instance = new Inventory();
-            return _instance;
+            Instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -22,6 +26,7 @@ public class Inventory
     {
         Key.pickedUp += SetKey;
     }
+
     private void OnDisable()
     {
         Key.pickedUp -= SetKey;
@@ -40,13 +45,21 @@ public class Inventory
 
     public void SetKey(KeysSO key)
     {
+        if (key == null)
+        {
+            Debug.LogError("Tried to add a null key to inventory!");
+            return;
+        }
+
         keyValuePairs[key.id] = key;
-        UIManager.Instance.UpdateInventory(key.id);
+        Debug.Log(key.id);
+        //UIManager.Instance.UpdateInventory(key.id);
     }
 
     public bool IsKeyInventory(int keyID)
     {
-        return keyValuePairs[keyID];
+        return keyValuePairs.ContainsKey(keyID);
     }
+
 
 }

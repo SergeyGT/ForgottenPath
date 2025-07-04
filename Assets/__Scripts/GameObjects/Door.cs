@@ -59,34 +59,41 @@ public class Door : MonoBehaviour, IInteractableObject
     {
         if (isDoorWithKey && !isDoorOpenWithKeys)
         {
-            for(int i = 0; i<locks.Count; i++)
+            bool allKeysCollected = true; 
+
+            for (int i = 0; i < locks.Count; i++)
             {
                 if (Inventory.Instance.IsKeyInventory(locks[i].number))
                 {
                     locks[i].isUnlocked = true;
-                    isDoorOpenWithKeys = true;
                 }
                 else
                 {
-                    isDoorOpenWithKeys = false;
-                    Debug.LogWarning("Не все ключи собраны");
-                    break;
+                    allKeysCollected = false;
+                    locks[i].isUnlocked = false;
+                    Debug.LogWarning($"Ключ для замка {locks[i].number} не найден");
                 }
             }
 
-            if (!isDoorOpenWithKeys)
+            if (!allKeysCollected)
             {
-                Debug.LogWarning("Дверь закрыта");
+                isDoorOpenWithKeys = false;
+                Debug.LogWarning("Дверь закрыта: не все ключи собраны");
                 return;
-            }  
+            }
+
+            isDoorOpenWithKeys = true;
         }
+
         // Анимация открытия двери
         isDoorOpen = true;
+        Debug.Log("Opened");
     }
 
     private void CloseDoor()
     {
         //анимация закрытия двери
         isDoorOpen = false;
+        Debug.Log("Closed");
     }
 }
